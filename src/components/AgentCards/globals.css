@@ -1,0 +1,54 @@
+.card-agent{
+    background-color: #8b867e;
+    border-radius: 25px;
+    display: grid;
+    margin: 0 auto;
+    align-items: center;
+    width: 60%;
+    height: 300px;
+}
+
+.card-container {
+    margin: 9% auto;
+}
+
+.name-container {
+    color: #FFFBF5;
+    box-shadow: inset 0 0 0 0.5px #FFFBF5;
+    border-radius: 50px;
+    width: 70%;
+    height: 40px;
+    display: flex;
+    margin: -10px auto 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(217, 217, 217, 0.253);
+    backdrop-filter: blur(500px);
+    z-index: 2;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+.name-agent {
+    color: #FFFBF5;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+}
+
+.role-icon-container {
+    border-right: 1px solid #FFFBF5;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.role-icon {
+    object-fit: contain;
+}
+
+.image-agent {
+    margin: auto auto;
+}
