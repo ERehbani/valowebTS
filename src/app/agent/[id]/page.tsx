@@ -3,6 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import "./globals.css";
+import "./globals.css";
 import ReactPlayer from "react-player";
 import { Card, CardBody, Tab, Tabs } from "@nextui-org/react";
 
@@ -134,6 +135,43 @@ function Detail({ params }: { params: { id: string } }) {
   ))}
 </Tabs>
 
+      <div className="head-container">
+        <div className="image-container">
+          <div className="background-container">
+            {agent?.background && (
+              <Image
+                src={agent.background}
+                alt="background"
+                width={550}
+                height={0}
+              />
+            )}
+          </div>
+          <div className="portrait-container">
+            {agent?.agentPortrait && (
+              <Image
+                src={agent.agentPortrait}
+                alt="agentPortrait"
+                width={650}
+                height={0}
+              />
+            )}
+          </div>
+        </div>
+        <div className="info-container">
+          <div className="agentName text-white">
+            <h2 className="flex">
+              {agent?.agentName} - {agent?.role.displayName} <Image className="object-contain ml-3" src={agent?.role.displayIcon} alt="displayIcon" width={20} height={0}/>
+            </h2>
+          </div>
+          <div>
+            <p className=" text-white font-light">{agent?.developerName}</p>
+          </div>
+          <div className="description text-white">
+            <p>{agent?.description}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

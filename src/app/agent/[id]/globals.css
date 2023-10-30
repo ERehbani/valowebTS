@@ -1,37 +1,37 @@
 .image-container {
-    width: 45%;
-    height: 75vh;
-    margin: 60px 0 0 200px;
-  }
-  
-  .background-container {
-    position: absolute;
-    z-index: -1;
-  }
-  
-  .portrait-container {
-    position: absolute;
-    left: 160px;
-    top: 140px;
-  }
-  
-  .agentName {
-    width: max-content;
-  }
-  
-  .head-container {
-    display: flex;
-  }
-  
-  .agentName, .description {
-      font-weight: bold;
-      font-size: 25px;
-  }
-  
-  .info-container {
-   border: 1px solid red;
-   width: 40%;
-   height: max-content;
-   margin: 20% -60px;
-   text-align: center;
-  }
+  width: 45%;
+  height: 75vh;
+  margin: 60px 0 0 200px;
+}
+
+.background-container {
+  position: absolute;
+  z-index: -1;
+}
+
+.portrait-container {
+  position: absolute;
+  left: 160px;
+  top: 140px;
+}
+
+.agentName {
+  width: max-content;
+}
+
+.head-container {
+  display: flex;
+}
+
+.agentName, .description {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.info-container {
+ border: 1px solid red;
+ width: 40%;
+ height: max-content;
+ margin: 20% -60px;
+ text-align: center;
+}
