@@ -7,7 +7,6 @@ function AgentCards({ item }) {
   return (
     <div className="card-agent">
       <div className="card-container">
-        <div>
           <Image
             className="image-agent"
             src={item.icon}
@@ -15,7 +14,6 @@ function AgentCards({ item }) {
             width={200}
             height={0}
           />
-        </div>
 
         <Link href={`/agent/${item.agentUuid}`}>
           <div className="name-container">

@@ -1,0 +1,38 @@
+.my-atropos {
+  width: 440px;
+  height: 220px;
+  background-color: #ff4654;
+}
+
+.my-atropos:hover .image-weapon {
+  transition: all 1s ease;
+  transform: scale(1.1) translateX(-5px) translateY(-5px);
+
+}
+
+.atropos-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.text-weapon {
+  margin: 20px auto 20px auto;
+  font-size: 24px;
+  text-shadow: 6px 5px 5px rgba(0,0,0,0.3);
+
+}
+
+.image-weapon {
+    object-fit: contain;
+    aspect-ratio: 3/2;
+    margin: 0 auto;
+}
+
+.grid-weapons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  width: 80%;
+  margin: 0 auto;
+}

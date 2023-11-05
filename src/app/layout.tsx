@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import { NextUIProvider } from "@nextui-org/react";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Arimo } from "next/font/google";
+import { Lato } from "next/font/google";
 
-const inter = Arimo({
-  subsets: ["latin"],
+const inter = Lato({
+  weight: "900",
+  subsets: ["latin"]
 });
 
 export default function RootLayout({
@@ -16,11 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      
       <body className={inter.className}>
-        <NextUIProvider>
-        {children}
-        </NextUIProvider>
-        </body>
+        <NextUIProvider>{children}</NextUIProvider>
+      </body>
     </html>
   );
 }
