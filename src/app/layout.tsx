@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 
 const inter = Lato({
-  weight: "900",
+  weight: ["900", "700", "400"],
   subsets: ["latin"]
 });
 

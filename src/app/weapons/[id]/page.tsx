@@ -94,11 +94,15 @@ function WeaponDetail({ params }: { params: { id: string } }) {
         <h2 className="text-white">{weapon?.displayName}</h2>
 
         <div className="skins-container">
-          {weapon?.skins.map((skin) => {
-            return (
-              <div key={skin.uuid}>
+          {weapon?.skins
+            .filter(
+              (skin) =>
+                skin.displayIcon !== null && skin.contentTierUuid !== null
+            )
+            .map((skin) => {
+              return (
+                <div key={skin.uuid}>
                   <div>
-                {skin.displayIcon && skin.contentTierUuid && (
                     <Image
                       src={skin.displayIcon}
                       alt="skin icon"
@@ -106,11 +110,10 @@ function WeaponDetail({ params }: { params: { id: string } }) {
                       height={0}
                       className="border border-red-600"
                     />
-                    )}
                   </div>
-              </div>
-            );
-          })}
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
