@@ -7,7 +7,7 @@ export async function GET() {
     const response = await axios('https://valorant-api.com/v1/weapons')
     const data = response.data.data.map((item: Weapon) => ({
         uuid: item.uuid,
-        displayName: item.displayName,
+        displayName: item.displayName.toUpperCase(),
         category: item.category,
         displayIcon: item.displayIcon,
         weaponStats: item.weaponStats,

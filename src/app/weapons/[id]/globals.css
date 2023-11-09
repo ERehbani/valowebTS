@@ -1,12 +1,24 @@
-.skins-container{
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr;
-    grid-template-rows: 2fr 2fr 2fr;
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
-    /* justify-items: stretch;
+.skins-container {
+  display: flex;
+  /* justify-items: stretch;
     align-items: stretch; */
-    border: 1px solid red;
-    width: 80%;
-    margin: 0 auto;
+  border: 1px solid red;
+  width: 80%;
+  margin: 0 20px;
+  overflow: hidden;
+  overflow-x: scroll;
+}
+
+.image-skin-container {
+  border: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  width: 75px;
+  height: 80px;
+  margin: 0 10px;
+}
+
+.image-skin {
+  object-fit: cover;
+  aspect-ratio: 3/2;
 }

@@ -102,13 +102,13 @@ function WeaponDetail({ params }: { params: { id: string } }) {
             .map((skin) => {
               return (
                 <div key={skin.uuid}>
-                  <div>
+                  <div className="image-skin-container">
                     <Image
                       src={skin.displayIcon}
                       alt="skin icon"
-                      width={200}
+                      width={150}
                       height={0}
-                      className="border border-red-600"
+                      className="image-skin"
                     />
                   </div>
                 </div>
