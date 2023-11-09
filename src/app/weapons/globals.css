@@ -32,7 +32,7 @@
 .grid-weapons {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
   width: 80%;
   margin: 0 auto;
+
 }

@@ -25,7 +25,7 @@ function Weapons() {
 
   return (
     <div>
-      <div className="grid-weapons">       
+      <div className=" grid-weapons">       
 
        <WeaponCards item={weapons} />
       </div>

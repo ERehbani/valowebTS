@@ -10,26 +10,23 @@ interface SmgProps {
 const Smgs: React.FC<SmgProps> = ({ weapon }) => {
   console.log(weapon);
   return (
-    <div>
-      <div>
-        <Link href={`/weapons/${weapon.uuid}`}>
-          <div className="my-10 bg-[#2e4659] w-[270px] h-40 flex flex-col justify-between">
-            <Image
-              src={weapon.displayIcon}
-              alt="icon"
-              width={200}
-              height={0}
-              className="mx-auto p-5"
-            />
-            <div>
-              <p className="text-white bg-[#425366] flex justify-center mt-5 font-normal">
-                {weapon.displayName}
-              </p>
-            </div>
-          </div>
-        </Link>
+    <div className="">
+
+    <Link href={`/weapons/${weapon.uuid}`}>
+      <div className="flex flex-col justify-between my-10 bg-[#2e4659] w-[270px] h-40 border border-red-600 ">
+        <Image
+          src={weapon.displayIcon}
+          alt="icon"
+          width={240}
+          height={0}
+          className="mx-auto p-5 object-cover my-auto"
+        />
+        <p className="text-white bg-[#425366] flex justify-center mt-5 font-normal">
+          {weapon.displayName}
+        </p>
       </div>
-    </div>
+    </Link>
+  </div>
   );
 };
 
