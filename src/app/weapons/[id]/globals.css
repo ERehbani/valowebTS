@@ -1,10 +1,10 @@
 .skins-container {
   display: flex;
-  /* justify-items: stretch;
-    align-items: stretch; */
+  justify-content: center;
   border: 1px solid red;
   width: 80%;
-  margin: 0 20px;
+  height: 200px;
+  margin: 100px auto 0 auto;
   overflow: hidden;
   overflow-x: scroll;
 }
@@ -12,13 +12,34 @@
 .image-skin-container {
   border: 1px solid gray;
   display: flex;
-  justify-content: center;
   width: 75px;
-  height: 80px;
+  height: 75px;
   margin: 0 10px;
 }
 
 .image-skin {
   object-fit: cover;
   aspect-ratio: 3/2;
+}
+
+.current-weapon {
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  padding: 100px;
+  pointer-events: none;
+}
+
+.image-skin-current {
+  object-fit: contain;
+  height: 200px;
+}
+
+.swatch-container {
+  display: flex;
+}
+.swatch-image {
+  margin: 0 10px;
+  border: 1px solid gray;
+  padding: 5px;
 }

@@ -38,6 +38,7 @@ export interface Weapon {
           uuid: string;
           displayName: string;
           fullRender: string;
+          swatch: string | null;
           streamedVideo: string | null;
         }
       ];

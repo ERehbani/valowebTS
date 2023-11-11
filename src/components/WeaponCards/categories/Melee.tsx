@@ -16,7 +16,7 @@ const SideArms: React.FC<SideArmsProps> = ({ weapon }) => {
           <Image
             src={weapon.displayIcon}
             alt="icon"
-            width={250}
+            width={220}
             height={0}
             className="displayIcon-weapon"
           />

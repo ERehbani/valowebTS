@@ -36,32 +36,35 @@ function WeaponDetail({ params }: { params: { id: string } }) {
       category: string;
       newImage: string;
     };
-    skins: [
+    skins: Skins[]
+  };
+
+  type Skins = {
+    contentTierUuid: string;
+    uuid: string;
+    displayName: string;
+    displayIcon: string;
+    chromas: [
       {
-        contentTierUuid: string;
+        uuid: string;
+        displayName: string;
+        fullRender: string;
+        swatch: string;
+        streamedVideo: string | null;
+      }
+    ];
+    levels: [
+      {
         uuid: string;
         displayName: string;
         displayIcon: string;
-        chromas: [
-          {
-            uuid: string;
-            displayName: string;
-            fullRender: string;
-            streamedVideo: string | null;
-          }
-        ];
-        levels: [
-          {
-            uuid: string;
-            displayName: string;
-            displayIcon: string;
-            streamedVideo: string | null;
-          }
-        ];
+        streamedVideo: string | null;
       }
     ];
   };
 
+  const [currentSkin, setCurrentSkin] = useState("");
+  const [chromas, setChromas] = useState<Skins | null>();
   const [weapon, setWeapon] = useState<Weapon | null>(null);
 
   useEffect(() => {
@@ -79,18 +82,55 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     getDetail();
   }, []);
 
-  console.log(weapon);
+  const changeSkin = (skin: string, uuid: string | null) => {
+    setCurrentSkin(skin);
+    console.log(uuid);
+    const filterWeapon = weapon?.skins.find((skin) => skin.uuid === uuid);
+    setChromas(filterWeapon);
+    console.log(filterWeapon?.chromas);
+  };
+
+  const changeChroma = (chroma: string) => {
+    setCurrentSkin(chroma);
+  };
+
+  console.log(chromas);
+
   return (
     <div>
       <div>
         {weapon && weapon.displayIcon && (
-          <Image
-            src={weapon.displayIcon || "/Valorant_default.png"}
-            alt="icon"
-            width={450}
-            height={0}
-          />
+          <div className="current-weapon">
+            <Image
+              src={currentSkin || weapon.displayIcon}
+              alt="icon"
+              width={450}
+              height={300}
+              className="image-skin-current"
+            />
+          </div>
         )}
+        <div className="swatch-container">
+          {chromas?.chromas.map((chroma, index) => {
+            return (
+              <div
+                key={index}
+                className=""
+                onClick={() => changeChroma(chroma.fullRender)}>
+                <Image
+                  src={
+                    (chroma.swatch && chroma.swatch) || "/valorant-color.svg"
+                  }
+                  alt="swatch"
+                  className="swatch-image"
+                  width={100}
+                  height={0}
+                />
+              </div>
+            );
+          })}
+        </div>
+
         <h2 className="text-white">{weapon?.displayName}</h2>
 
         <div className="skins-container">
@@ -102,11 +142,13 @@ function WeaponDetail({ params }: { params: { id: string } }) {
             .map((skin) => {
               return (
                 <div key={skin.uuid}>
-                  <div className="image-skin-container">
+                  <div
+                    onClick={() => changeSkin(skin.displayIcon, skin.uuid)}
+                    className="image-skin-container">
                     <Image
                       src={skin.displayIcon}
                       alt="skin icon"
-                      width={150}
+                      width={200}
                       height={0}
                       className="image-skin"
                     />
