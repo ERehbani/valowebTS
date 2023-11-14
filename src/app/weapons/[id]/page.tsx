@@ -3,6 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import "./globals.css";
+import ReactPlayer from "react-player";
 
 function WeaponDetail({ params }: { params: { id: string } }) {
   type Weapon = {
@@ -36,7 +37,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
       category: string;
       newImage: string;
     };
-    skins: Skins[]
+    skins: Skins[];
   };
 
   type Skins = {
@@ -53,18 +54,23 @@ function WeaponDetail({ params }: { params: { id: string } }) {
         streamedVideo: string | null;
       }
     ];
-    levels: [
-      {
-        uuid: string;
-        displayName: string;
-        displayIcon: string;
-        streamedVideo: string | null;
-      }
-    ];
+    levels: Levels[];
   };
+
+  type Levels =
+    {
+      uuid: string;
+      displayName: string;
+      displayIcon: string;
+      streamedVideo: string | null;
+    }
+  ;
+
+  type Level = Levels[]
 
   const [currentSkin, setCurrentSkin] = useState("");
   const [chromas, setChromas] = useState<Skins | null>();
+  const [levels, setLevels] = useState<Level | null>();
   const [weapon, setWeapon] = useState<Weapon | null>(null);
 
   useEffect(() => {
@@ -86,15 +92,16 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     setCurrentSkin(skin);
     console.log(uuid);
     const filterWeapon = weapon?.skins.find((skin) => skin.uuid === uuid);
+    setLevels(filterWeapon?.levels)
     setChromas(filterWeapon);
-    console.log(filterWeapon?.chromas);
   };
 
   const changeChroma = (chroma: string) => {
     setCurrentSkin(chroma);
   };
 
-  console.log(chromas);
+
+  console.log(levels)
 
   return (
     <div>
@@ -104,7 +111,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
             <Image
               src={currentSkin || weapon.displayIcon}
               alt="icon"
-              width={450}
+              width={400}
               height={300}
               className="image-skin-current"
             />
@@ -117,18 +124,43 @@ function WeaponDetail({ params }: { params: { id: string } }) {
                 key={index}
                 className=""
                 onClick={() => changeChroma(chroma.fullRender)}>
-                <Image
-                  src={
-                    (chroma.swatch && chroma.swatch) || "/valorant-color.svg"
-                  }
-                  alt="swatch"
-                  className="swatch-image"
-                  width={100}
-                  height={0}
-                />
+                {chroma.swatch ? (
+                  <Image
+                    src={chroma.swatch && chroma.swatch}
+                    alt="swatch"
+                    className="swatch-image"
+                    width={60}
+                    height={0}
+                  />
+                ) : (
+                  <Image
+                    src="/block.svg"
+                    alt="swatch"
+                    className="block-swatch-image"
+                    width={60}
+                    height={0}
+                  />
+                )}
               </div>
             );
           })}
+
+         <div>
+          {levels?.map((level, index) => {
+            return (
+              <div key={index}>
+                { level.streamedVideo && (
+                  <ReactPlayer  url={level.streamedVideo}
+                  classname="react-player"
+                  playing
+                  loop
+                  muted/>
+                  
+                )}
+              </div>
+            )
+          })}
+         </div>
         </div>
 
         <h2 className="text-white">{weapon?.displayName}</h2>
