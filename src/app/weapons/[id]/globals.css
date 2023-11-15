@@ -15,6 +15,7 @@
   width: 75px;
   height: 75px;
   margin: 0 10px;
+  transition: all .2s ease-in;
 }
 
 .image-skin {
@@ -24,22 +25,32 @@
 
 .current-weapon {
   border: 1px solid red;
-  display: flex;
-  justify-content: center;
+  width: 60%;
+  margin: 0 auto;
+  /* display: flex; */
+  justify-content: space-around;
   padding: 100px;
-  pointer-events: none;
+  height: 460px;
+
 }
 
 .image-skin-current {
   object-fit: contain;
   height: 200px;
+  pointer-events: none;
 }
 
 .swatch-container {
   display: flex;
 }
+
 .swatch-image {
   margin: 0 10px;
   border: 1px solid gray;
   padding: 5px;
+  transition: all .2s ease-in;
+}
+
+.swatch-image:hover, .image-skin-container:hover {
+  border-width: 3px;
 }

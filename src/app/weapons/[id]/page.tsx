@@ -3,7 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import "./globals.css";
-import ReactPlayer from "react-player";
+import LevelsPlayer from "@/components/LevelsPlayer/LevelsPlayer";
 
 function WeaponDetail({ params }: { params: { id: string } }) {
   type Weapon = {
@@ -57,16 +57,15 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     levels: Levels[];
   };
 
-  type Levels =
-    {
-      uuid: string;
-      displayName: string;
-      displayIcon: string;
-      streamedVideo: string | null;
-    }
-  ;
+  type Levels = {
+    uuid: string;
+    displayName: string;
+    levelItem: string;
+    displayIcon: string;
+    streamedVideo: string | null;
+  };
 
-  type Level = Levels[]
+  type Level = Levels[];
 
   const [currentSkin, setCurrentSkin] = useState("");
   const [chromas, setChromas] = useState<Skins | null>();
@@ -92,7 +91,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     setCurrentSkin(skin);
     console.log(uuid);
     const filterWeapon = weapon?.skins.find((skin) => skin.uuid === uuid);
-    setLevels(filterWeapon?.levels)
+    setLevels(filterWeapon?.levels);
     setChromas(filterWeapon);
   };
 
@@ -100,68 +99,62 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     setCurrentSkin(chroma);
   };
 
-
-  console.log(levels)
+  console.log(weapon)
 
   return (
     <div>
       <div>
         {weapon && weapon.displayIcon && (
           <div className="current-weapon">
-            <Image
-              src={currentSkin || weapon.displayIcon}
-              alt="icon"
-              width={400}
-              height={300}
-              className="image-skin-current"
-            />
+            <div  className="flex justify-around">
+              <div>
+                <Image
+                  src={currentSkin || weapon.displayIcon}
+                  alt="icon"
+                  width={400}
+                  height={300}
+                  className="image-skin-current"
+                />
+              </div>
+              <div className="h-[260px]">
+                {levels?.map((level, index) => {
+                  return (
+                    <div key={index} className="">
+                      {level.streamedVideo ? (
+                        <LevelsPlayer
+                          streamVideo={level.streamedVideo}
+                          levelItem={level.levelItem}
+                        />
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="swatch-container">
+              {chromas?.chromas.map((chroma, index) => {
+                return (
+                  <div
+                    key={index}
+                    className=""
+                    onClick={() => changeChroma(chroma.fullRender)}>
+                    {chroma.swatch ? (
+                      <Image
+                        src={chroma.swatch && chroma.swatch}
+                        alt="swatch"
+                        className="swatch-image"
+                        width={60}
+                        height={0}
+                      />
+                    ) : (
+                      null
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
-        <div className="swatch-container">
-          {chromas?.chromas.map((chroma, index) => {
-            return (
-              <div
-                key={index}
-                className=""
-                onClick={() => changeChroma(chroma.fullRender)}>
-                {chroma.swatch ? (
-                  <Image
-                    src={chroma.swatch && chroma.swatch}
-                    alt="swatch"
-                    className="swatch-image"
-                    width={60}
-                    height={0}
-                  />
-                ) : (
-                  <Image
-                    src="/block.svg"
-                    alt="swatch"
-                    className="block-swatch-image"
-                    width={60}
-                    height={0}
-                  />
-                )}
-              </div>
-            );
-          })}
-
-         <div>
-          {levels?.map((level, index) => {
-            return (
-              <div key={index}>
-                { level.streamedVideo && (
-                  <ReactPlayer  url={level.streamedVideo}
-                  classname="react-player"
-                  playing
-                  loop
-                  muted/>
-                  
-                )}
-              </div>
-            )
-          })}
-         </div>
-        </div>
 
         <h2 className="text-white">{weapon?.displayName}</h2>
 
