@@ -52,6 +52,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
         fullRender: string;
         swatch: string;
         streamedVideo: string | null;
+        contentTierUuid: string;
       }
     ];
     levels: Levels[];
@@ -71,6 +72,8 @@ function WeaponDetail({ params }: { params: { id: string } }) {
   const [chromas, setChromas] = useState<Skins | null>();
   const [levels, setLevels] = useState<Level | null>();
   const [weapon, setWeapon] = useState<Weapon | null>(null);
+  const [catalog, setCatalog] = useState<Weapon[] | null>();
+  const [theme, setTheme] = useState<Weapon[] | null>(null);
 
   useEffect(() => {
     const getDetail = async () => {
@@ -84,12 +87,23 @@ function WeaponDetail({ params }: { params: { id: string } }) {
         console.log(error);
       }
     };
+    const getTheme = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/weapons");
+        const data = await response.json();
+        setCatalog(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getDetail();
+    getTheme();
   }, []);
+
+  console.log(weapon);
 
   const changeSkin = (skin: string, uuid: string | null) => {
     setCurrentSkin(skin);
-    console.log(uuid);
     const filterWeapon = weapon?.skins.find((skin) => skin.uuid === uuid);
     setLevels(filterWeapon?.levels);
     setChromas(filterWeapon);
@@ -99,14 +113,12 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     setCurrentSkin(chroma);
   };
 
-  console.log(weapon)
-
   return (
     <div>
       <div>
         {weapon && weapon.displayIcon && (
           <div className="current-weapon">
-            <div  className="flex justify-around">
+            <div className="flex justify-around">
               <div>
                 <Image
                   src={currentSkin || weapon.displayIcon}
@@ -146,9 +158,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
                         width={60}
                         height={0}
                       />
-                    ) : (
-                      null
-                    )}
+                    ) : null}
                   </div>
                 );
               })}
@@ -168,7 +178,9 @@ function WeaponDetail({ params }: { params: { id: string } }) {
               return (
                 <div key={skin.uuid}>
                   <div
-                    onClick={() => changeSkin(skin.displayIcon, skin.uuid)}
+                    onClick={() => {
+                      changeSkin(skin.displayIcon, skin.uuid);
+                    }}
                     className="image-skin-container">
                     <Image
                       src={skin.displayIcon}
