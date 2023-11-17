@@ -33,6 +33,7 @@ export interface Weapon {
       uuid: string;
       displayName: string;
       displayIcon: string;
+      themeUuid: string;
       chromas: [
         {
           uuid: string;

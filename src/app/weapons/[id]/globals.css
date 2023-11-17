@@ -36,6 +36,7 @@
 
 .image-skin-current {
   object-fit: contain;
+  aspect-ratio: 3/2;
   height: 200px;
   pointer-events: none;
 }
@@ -53,4 +54,11 @@
 
 .swatch-image:hover, .image-skin-container:hover {
   border-width: 3px;
+}
+
+
+.current-weapon-title {
+  color: white;
+  margin: 0 auto;
+  font-weight: 900;
 }

@@ -45,6 +45,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     uuid: string;
     displayName: string;
     displayIcon: string;
+    themeUuid: string;
     chromas: [
       {
         uuid: string;
@@ -72,8 +73,9 @@ function WeaponDetail({ params }: { params: { id: string } }) {
   const [chromas, setChromas] = useState<Skins | null>();
   const [levels, setLevels] = useState<Level | null>();
   const [weapon, setWeapon] = useState<Weapon | null>(null);
+  const [ currentName, setCurrentName] = useState<string | null>(null)
   const [catalog, setCatalog] = useState<Weapon[] | null>();
-  const [theme, setTheme] = useState<Weapon[] | null>(null);
+  const [matchSkin, setMatchSkin] = useState<Skins[] | null>(null);
 
   useEffect(() => {
     const getDetail = async () => {
@@ -83,6 +85,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
         );
         console.log(data);
         setWeapon(data);
+        setCurrentName(data.displayName)
       } catch (error) {
         console.log(error);
       }
@@ -100,24 +103,62 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     getTheme();
   }, []);
 
-  console.log(weapon);
 
-  const changeSkin = (skin: string, uuid: string | null) => {
+  const findMatchingSkins = (themeUuid: string | null): Skins[] | null => {
+    if (!catalog || !themeUuid) {
+      return null;
+    }
+
+    const matchingSkins: Skins[] = [];
+
+    catalog.forEach((weapon) => {
+      if (weapon.skins && weapon.skins.length > 0) {
+        const matchingWeaponSkins = weapon.skins.filter(
+          (skin) => skin.themeUuid === themeUuid
+        );
+
+        matchingSkins.push(...matchingWeaponSkins);
+      }
+    });
+    console.log(matchingSkins);
+    setMatchSkin(matchingSkins);
+    return matchingSkins.length > 0 ? matchingSkins : null;
+  };
+
+  const changeSkin = (
+    skin: string,
+    uuid: string | null,
+    themeUuid: string | null,
+    displayName: string | null
+  ) => {
+    setCurrentSkin(skin);
+
+    const matchingSkins = findMatchingSkins(themeUuid);
+
+    if (matchingSkins) {
+      console.log("Skins encontrados:", matchingSkins);
+    }
     setCurrentSkin(skin);
     const filterWeapon = weapon?.skins.find((skin) => skin.uuid === uuid);
     setLevels(filterWeapon?.levels);
     setChromas(filterWeapon);
+    setCurrentName(displayName)
   };
+
+  console.log(matchSkin);
 
   const changeChroma = (chroma: string) => {
     setCurrentSkin(chroma);
   };
 
+  console.log(currentName)
+
   return (
     <div>
       <div>
         {weapon && weapon.displayIcon && (
-          <div className="current-weapon">
+          <div className="current-weapon">    
+          <h2 className="current-weapon-title">{currentName}</h2>
             <div className="flex justify-around">
               <div>
                 <Image
@@ -166,7 +207,6 @@ function WeaponDetail({ params }: { params: { id: string } }) {
           </div>
         )}
 
-        <h2 className="text-white">{weapon?.displayName}</h2>
 
         <div className="skins-container">
           {weapon?.skins
@@ -179,7 +219,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
                 <div key={skin.uuid}>
                   <div
                     onClick={() => {
-                      changeSkin(skin.displayIcon, skin.uuid);
+                      changeSkin(skin.displayIcon, skin.uuid, skin.themeUuid, skin.displayName);
                     }}
                     className="image-skin-container">
                     <Image
@@ -193,6 +233,30 @@ function WeaponDetail({ params }: { params: { id: string } }) {
                 </div>
               );
             })}
+        </div>
+
+        <div className="py-20">
+          <h2 className="text-white">Matching Skins</h2>
+          <div className="flex justify-center">
+            {matchSkin?.map((skin, index) => {
+              return (
+                <div
+                  key={index}
+                  className="border border-slate-300 mx-5">
+                  <div className="p-5">
+                    <Image
+                      src={skin.displayIcon}
+                      alt="match skin"
+                      width={200}
+                      height={0}
+                      className="image-skin-current"
+                    />
+                    <p className="text-white">{skin.displayName}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
