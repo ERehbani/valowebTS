@@ -37,7 +37,7 @@ const WeaponCards: React.FC<WeaponProp> = ({ item }) => {
 
   return (
     <div>
-      <div className="w-[100%] flex justify-around border border-red-600">
+      <div className="w-[100%] flex justify-around">
         <div>
           <h2 className="category-title">SIDEARMS</h2>
           {pistols.map((weapon, index) => (

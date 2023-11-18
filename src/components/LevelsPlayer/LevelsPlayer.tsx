@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./globals.css";
 import ReactPlayer from "react-player";
 import { Button, Tooltip } from "@nextui-org/react";
-import Image from "next/image";
 
 function LevelsPlayer({
   streamVideo,
@@ -11,7 +10,6 @@ function LevelsPlayer({
   streamVideo: string;
   levelItem: string;
 }) {
-  const [volume, setVolume] = useState(0);
 
   const spaceString = (str: string) => {
     return str
@@ -21,7 +19,7 @@ function LevelsPlayer({
   };
   return (
     <div>
-      <div className="my-5 flex ">
+      <div className="my-3">
         <Tooltip
           className="text-white tooltip-player"
           placement="right"
@@ -30,30 +28,12 @@ function LevelsPlayer({
             <div>
               <ReactPlayer
                 url={streamVideo}
-                volume={volume}
                 classname="react-player"
                 playing
+                muted
                 loop
+                controls                
               />{" "}
-              <label className="slider">
-                <input
-                  type="range"
-                  className="level mt-1"
-                  min={0}
-                  max={1}
-                  step="any"
-                  value={volume}
-                  onChange={(e) => setVolume(parseFloat(e.target.value))}
-                />
-                <Image
-                  src="/volume.svg"
-                  alt="volume"
-                  onClick={() => setVolume(0)}
-                  width={20}
-                  height={0}
-                  className="mr-2 mt-1"
-                />
-              </label>
             </div>
           }>
           <Button>{levelItem ? spaceString(levelItem) : "Base"}</Button>

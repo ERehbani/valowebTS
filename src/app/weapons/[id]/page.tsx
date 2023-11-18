@@ -4,78 +4,26 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import "./globals.css";
 import LevelsPlayer from "@/components/LevelsPlayer/LevelsPlayer";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import MatchSkins from "@/components/MatchSkins/MatchSkins";
+import { Levels, Skins, Weapon } from "../interface";
+
+
 
 function WeaponDetail({ params }: { params: { id: string } }) {
-  type Weapon = {
-    uuid: string;
-    displayName: string;
-    category: string;
-    contentTierUuid: string;
-    displayIcon: string;
-    weaponStats: {
-      fireRate: number;
-      magazineSize: number;
-      equipTimeSeconds: number;
-      reloadTimeSeconds: number;
-    };
-    damageRanges: [
-      {
-        rangeStartMeters: number;
-        headDamage: number;
-        bodyDamage: number;
-        legDamage: number;
-      },
-      {
-        rangeStartMeters: number;
-        headDamage: number;
-        bodyDamage: number;
-        legDamage: number;
-      }
-    ];
-    shopData: {
-      cost: number;
-      category: string;
-      newImage: string;
-    };
-    skins: Skins[];
-  };
-
-  type Skins = {
-    contentTierUuid: string;
-    uuid: string;
-    displayName: string;
-    displayIcon: string;
-    themeUuid: string;
-    chromas: [
-      {
-        uuid: string;
-        displayName: string;
-        fullRender: string;
-        swatch: string;
-        streamedVideo: string | null;
-        contentTierUuid: string;
-      }
-    ];
-    levels: Levels[];
-  };
-
-  type Levels = {
-    uuid: string;
-    displayName: string;
-    levelItem: string;
-    displayIcon: string;
-    streamedVideo: string | null;
-  };
 
   type Level = Levels[];
 
-  const [currentSkin, setCurrentSkin] = useState("");
+  const [currentSkin, setCurrentSkin] = useState<string | null>("");
   const [chromas, setChromas] = useState<Skins | null>();
   const [levels, setLevels] = useState<Level | null>();
   const [weapon, setWeapon] = useState<Weapon | null>(null);
-  const [ currentName, setCurrentName] = useState<string | null>(null)
+  const [currentName, setCurrentName] = useState<string | null>("");
   const [catalog, setCatalog] = useState<Weapon[] | null>();
-  const [matchSkin, setMatchSkin] = useState<Skins[] | null>(null);
+  const [matchSkin, setMatchSkin] = useState<Skins[]>([]);
+
+  const router = useRouter()
 
   useEffect(() => {
     const getDetail = async () => {
@@ -85,7 +33,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
         );
         console.log(data);
         setWeapon(data);
-        setCurrentName(data.displayName)
+        setCurrentName(data.displayName);
       } catch (error) {
         console.log(error);
       }
@@ -101,8 +49,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     };
     getDetail();
     getTheme();
-  }, []);
-
+  }, [params.id]);
 
   const findMatchingSkins = (themeUuid: string | null): Skins[] | null => {
     if (!catalog || !themeUuid) {
@@ -112,7 +59,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     const matchingSkins: Skins[] = [];
 
     catalog.forEach((weapon) => {
-      if (weapon.skins && weapon.skins.length > 0) {
+      if (weapon && weapon.skins && weapon.skins.length > 0) {
         const matchingWeaponSkins = weapon.skins.filter(
           (skin) => skin.themeUuid === themeUuid
         );
@@ -120,7 +67,8 @@ function WeaponDetail({ params }: { params: { id: string } }) {
         matchingSkins.push(...matchingWeaponSkins);
       }
     });
-    console.log(matchingSkins);
+
+    console.log(weapon);
     setMatchSkin(matchingSkins);
     return matchingSkins.length > 0 ? matchingSkins : null;
   };
@@ -138,11 +86,12 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     if (matchingSkins) {
       console.log("Skins encontrados:", matchingSkins);
     }
-    setCurrentSkin(skin);
-    const filterWeapon = weapon?.skins.find((skin) => skin.uuid === uuid);
+    const filterWeapon = weapon
+      ? weapon.skins.find((skin) => skin.uuid === uuid)
+      : null;
     setLevels(filterWeapon?.levels);
     setChromas(filterWeapon);
-    setCurrentName(displayName)
+    setCurrentName(displayName || "");
   };
 
   console.log(matchSkin);
@@ -151,28 +100,29 @@ function WeaponDetail({ params }: { params: { id: string } }) {
     setCurrentSkin(chroma);
   };
 
-  console.log(currentName)
-
   return (
     <div>
       <div>
         {weapon && weapon.displayIcon && (
-          <div className="current-weapon">    
-          <h2 className="current-weapon-title">{currentName}</h2>
-            <div className="flex justify-around">
-              <div>
-                <Image
-                  src={currentSkin || weapon.displayIcon}
-                  alt="icon"
-                  width={400}
-                  height={300}
-                  className="image-skin-current"
-                />
+          <div className="current-weapon">
+            <div className="current-weapon-content">
+            <h2 className="current-weapon-title">{currentName}</h2>
+            <div className="flex">
+              <div className=" mx-auto">
+                {weapon && weapon.displayIcon && (
+                  <Image
+                    src={currentSkin || weapon.displayIcon}
+                    alt="icon"
+                    width={500}
+                    height={300}
+                    className="image-skin-current"
+                  />
+                )}
               </div>
               <div className="h-[260px]">
                 {levels?.map((level, index) => {
                   return (
-                    <div key={index} className="">
+                    <div key={index} className="levels-player">
                       {level.streamedVideo ? (
                         <LevelsPlayer
                           streamVideo={level.streamedVideo}
@@ -204,9 +154,9 @@ function WeaponDetail({ params }: { params: { id: string } }) {
                 );
               })}
             </div>
+            </div>
           </div>
         )}
-
 
         <div className="skins-container">
           {weapon?.skins
@@ -219,7 +169,12 @@ function WeaponDetail({ params }: { params: { id: string } }) {
                 <div key={skin.uuid}>
                   <div
                     onClick={() => {
-                      changeSkin(skin.displayIcon, skin.uuid, skin.themeUuid, skin.displayName);
+                      changeSkin(
+                        skin.displayIcon,
+                        skin.uuid,
+                        skin.themeUuid,
+                        skin.displayName
+                      );
                     }}
                     className="image-skin-container">
                     <Image
@@ -233,29 +188,13 @@ function WeaponDetail({ params }: { params: { id: string } }) {
                 </div>
               );
             })}
+
         </div>
 
         <div className="py-20">
           <h2 className="text-white">Matching Skins</h2>
           <div className="flex justify-center">
-            {matchSkin?.map((skin, index) => {
-              return (
-                <div
-                  key={index}
-                  className="border border-slate-300 mx-5">
-                  <div className="p-5">
-                    <Image
-                      src={skin.displayIcon}
-                      alt="match skin"
-                      width={200}
-                      height={0}
-                      className="image-skin-current"
-                    />
-                    <p className="text-white">{skin.displayName}</p>
-                  </div>
-                </div>
-              );
-            })}
+              <MatchSkins matchSkin={matchSkin}/>
           </div>
         </div>
       </div>

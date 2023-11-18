@@ -1,8 +1,8 @@
 .skins-container {
   display: flex;
   justify-content: center;
-  border: 1px solid red;
-  width: 80%;
+  align-items: center;
+  width: 90%;
   height: 200px;
   margin: 100px auto 0 auto;
   overflow: hidden;
@@ -12,26 +12,41 @@
 .image-skin-container {
   border: 1px solid gray;
   display: flex;
-  width: 75px;
-  height: 75px;
+  width: 112px;
+  height: 112px;
   margin: 0 10px;
-  transition: all .2s ease-in;
+  transition: all 0.2s ease-in;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .image-skin {
   object-fit: cover;
   aspect-ratio: 3/2;
+  pointer-events: none;
 }
 
 .current-weapon {
-  border: 1px solid red;
   width: 60%;
+  display: flex;
+  justify-content: space-between;
   margin: 0 auto;
-  /* display: flex; */
-  justify-content: space-around;
-  padding: 100px;
+}
+
+.current-weapon-content {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  width: 100%;
+  margin-top: 50px;
+  padding: 50px;
   height: 460px;
 
+}
+
+.levels-player {
+display: flex;
+justify-content: center;
+padding-right: 50px;
 }
 
 .image-skin-current {
@@ -49,16 +64,17 @@
   margin: 0 10px;
   border: 1px solid gray;
   padding: 5px;
-  transition: all .2s ease-in;
+  transition: all 0.2s ease-in;
 }
 
-.swatch-image:hover, .image-skin-container:hover {
+.swatch-image:hover,
+.image-skin-container:hover {
   border-width: 3px;
 }
-
 
 .current-weapon-title {
   color: white;
   margin: 0 auto;
+  font-size: 24px;
   font-weight: 900;
 }
