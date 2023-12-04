@@ -6,7 +6,7 @@ import './globals.css'
 
 function MatchSkins({matchSkin}: {matchSkin: Skins[]}) {
 
-  const redirectWeapon = (displayName: string) => {
+  const redirectWeapon = (displayName: string, assetPath: string) => {
     if(displayName.includes("Odin")) return "/weapons/63e6c2b6-4a8e-869c-3d4c-e38355226584"
     if(displayName.includes("Ares")) return '/weapons/55d8a0f4-4274-ca67-fe2c-06ab45efdf58'
     if(displayName.includes("Vandal")) return '/weapons/9c82e19d-4575-0200-1a81-3eacf00cf872'
@@ -24,7 +24,7 @@ function MatchSkins({matchSkin}: {matchSkin: Skins[]}) {
     if(displayName.includes("Marshal")) return '/weapons/c4883e50-4494-202c-3ec3-6b8a9284f00b'
     if(displayName.includes("Spectre")) return '/weapons/462080d1-4035-2937-7c09-27aa2a5c27a7'
     if(displayName.includes("Stringer")) return '/weapons/f7e1b454-4ad4-1063-ec0a-159e56b58941'
-    if(displayName.includes("Melee" || "Knife" || "Blade" || "Firefly")) return '/weapons/2f59173c-4bed-b6c3-2191-dea9b58be9c7'
+    if(assetPath.includes( "Melee" )) return '/weapons/2f59173c-4bed-b6c3-2191-dea9b58be9c7'
     
     
   }
@@ -38,7 +38,7 @@ function MatchSkins({matchSkin}: {matchSkin: Skins[]}) {
           .map((skin, index) => {
             return (
               <div key={index} className="mx-5" >
-                <Link href={redirectWeapon(skin.displayName) || ''}>
+                <Link href={redirectWeapon(skin.displayName, skin.assetPath) || ''}>
                   <div className="match-skin">
                     <Image
                       src={skin.displayIcon}

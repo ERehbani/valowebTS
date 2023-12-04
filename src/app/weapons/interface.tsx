@@ -33,6 +33,7 @@ export interface Weapon {
 }
 
 export interface Skins {
+  assetPath: string;
     contentTierUuid: string;
     uuid: string;
     displayName: string;

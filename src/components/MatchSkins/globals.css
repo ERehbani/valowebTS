@@ -6,6 +6,6 @@
 }
 
 .match-skin:hover {
-    border-width: 2px;
+    border-width: 1.5px;
     transform: translateY(-2px);
   }
