@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import "./globals.css";
 import AgentCards from "@/components/AgentCards/AgentCards";
+import { Progress } from "@nextui-org/react";
 
 export default function Home() {
   type Agent = {
@@ -45,8 +46,24 @@ export default function Home() {
       <div className="grid-agents">
         {" "}
         {/* Añadir las clases de CSS Grid aquí */}
-        {Array.isArray(data) &&
-          data.map((item, index) => <AgentCards item={item} key={index} />)}
+        {data.length > 0 ? (
+          data.map((item, index) => <AgentCards item={item} key={index} />)
+        ) : (
+          <div className="loader-container">
+            <Image
+              src="/agent_loader.webp"
+              alt="loader"
+              width={1000}
+              height={0}
+            />
+            <Progress
+              size="sm"
+              isIndeterminate
+              aria-label="Loading..."
+              className="max-w-md mt-10"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
