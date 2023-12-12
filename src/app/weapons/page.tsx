@@ -23,14 +23,22 @@ function Weapons() {
   }, []);
 
 
-  return (
-    <div>
-      <div className=" grid-weapons">       
-
-       <WeaponCards item={weapons} />
-      </div>
+  // ...
+return (
+  <div>
+    <div className="grid-weapons">       
+      {weapons.length > 0 ? (
+        <WeaponCards item={weapons} />
+      ) : (
+        <div className="loader-container">
+          <Image src="/weapon_loader.webp" alt="loader" width={1000} height={0} />
+        </div>
+      )}
     </div>
-  );
+  </div>
+);
+// ...
+
 }
 
 export default Weapons;

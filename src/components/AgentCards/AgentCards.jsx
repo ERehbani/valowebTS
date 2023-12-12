@@ -11,7 +11,7 @@ function AgentCards({ item }) {
             className="image-agent"
             src={item.icon}
             alt="agent icon"
-            width={200}
+            width={175}
             height={0}
           />
 

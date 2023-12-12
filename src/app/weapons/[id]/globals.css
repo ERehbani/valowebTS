@@ -1,22 +1,29 @@
 .skins-container {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
-  height: 200px;
+  */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 2px;
+  grid-row-gap: 20px;
+  justify-items: stretch;
+  align-items: stretch;
   margin: 50px auto 0 auto;
-  overflow-x: scroll;
-  
+  width: 80%;
+  height: 300px;
+  overflow-y: scroll;
 }
 
 .image-skin-container {
   border: 1px solid gray;
   display: flex;
-  width: 75px;
-  height: 75px;
+  width: 100px;
+  height: 100px;
   margin: 0 10px;
   transition: all 0.2s ease-in;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .image-skin {
@@ -40,13 +47,12 @@
   margin-top: 50px;
   padding: 50px;
   height: 460px;
-
 }
 
 .levels-player {
-display: flex;
-justify-content: center;
-padding-right: 50px;
+  display: flex;
+  justify-content: center;
+  padding-right: 50px;
 }
 
 .image-skin-current {

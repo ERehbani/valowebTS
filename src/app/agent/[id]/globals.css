@@ -8,12 +8,13 @@
 .background-container {
   position: absolute;
   z-index: 1;
+  top: 100px;
 }
 
 .portrait-container {
   position: absolute;
   left: 270px;
-  top: 140px;
+  top: 200px;
   z-index: 2;
 }
 
@@ -24,6 +25,7 @@
 .head-container {
   display: flex;
   justify-content: space-around;
+  height: 90vh;
 }
 
 .agentName,
@@ -39,7 +41,7 @@
   justify-content: space-around;
   height: 350px;
   width: 40%;
-  margin: 20% -60px;
+  margin: 10% -60px;
   text-align: center;
 }
 

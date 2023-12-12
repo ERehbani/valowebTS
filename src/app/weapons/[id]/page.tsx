@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import MatchSkins from "@/components/MatchSkins/MatchSkins";
 import { Levels, Skins, Weapon } from "../interface";
+import { ScrollShadow } from "@nextui-org/react";
 
 
 
@@ -158,7 +159,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
           </div>
         )}
 
-        <div className="skins-container">
+        <ScrollShadow hideScrollBar className="skins-container">
           {weapon?.skins
             .filter(
               (skin) =>
@@ -189,7 +190,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
               );
             })}
 
-        </div>
+        </ScrollShadow>
 
         <div className="py-20">
           <h2 className="text-white">Matching Skins</h2>
