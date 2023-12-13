@@ -84,3 +84,17 @@
   font-size: 24px;
   font-weight: 900;
 }
+
+.matching-skin-container {
+  width: 80%;
+  margin: 40px auto;
+}
+
+.svg-back {
+  transition: all .3s ease-in;
+}
+
+
+.svg-back:hover {
+  transform: translateX(-5px);
+}

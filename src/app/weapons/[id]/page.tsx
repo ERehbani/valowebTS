@@ -4,16 +4,12 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import "./globals.css";
 import LevelsPlayer from "@/components/LevelsPlayer/LevelsPlayer";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import MatchSkins from "@/components/MatchSkins/MatchSkins";
 import { Levels, Skins, Weapon } from "../interface";
 import { ScrollShadow } from "@nextui-org/react";
 
-
-
 function WeaponDetail({ params }: { params: { id: string } }) {
-
   type Level = Levels[];
 
   const [currentSkin, setCurrentSkin] = useState<string | null>("");
@@ -24,7 +20,6 @@ function WeaponDetail({ params }: { params: { id: string } }) {
   const [catalog, setCatalog] = useState<Weapon[] | null>();
   const [matchSkin, setMatchSkin] = useState<Skins[]>([]);
 
-  const router = useRouter()
 
   useEffect(() => {
     const getDetail = async () => {
@@ -104,57 +99,63 @@ function WeaponDetail({ params }: { params: { id: string } }) {
   return (
     <div>
       <div>
+        <div className="w-[95%] absolute ml-10">
+          <Link href="/weapons">
+            <Image src="/arrow-back.svg" alt="back" width={50} height={20} className="svg-back"/>
+            <h2 className="text-white text-xl ml-1">Back</h2>
+          </Link>
+        </div>
         {weapon && weapon.displayIcon && (
           <div className="current-weapon">
             <div className="current-weapon-content">
-            <h2 className="current-weapon-title">{currentName}</h2>
-            <div className="flex">
-              <div className=" mx-auto">
-                {weapon && weapon.displayIcon && (
-                  <Image
-                    src={currentSkin || weapon.displayIcon}
-                    alt="icon"
-                    width={500}
-                    height={300}
-                    className="image-skin-current"
-                  />
-                )}
+              <h2 className="current-weapon-title">{currentName}</h2>
+              <div className="flex">
+                <div className="my-auto mx-auto">
+                  {weapon && weapon.displayIcon && (
+                    <Image
+                      src={currentSkin || weapon.displayIcon}
+                      alt="icon"
+                      width={500}
+                      height={300}
+                      className="image-skin-current"
+                    />
+                  )}
+                </div>
+                <div className="h-[260px]">
+                  {levels?.map((level, index) => {
+                    return (
+                      <div key={index} className="levels-player">
+                        {level.streamedVideo ? (
+                          <LevelsPlayer
+                            streamVideo={level.streamedVideo}
+                            levelItem={level.levelItem}
+                          />
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-              <div className="h-[260px]">
-                {levels?.map((level, index) => {
+              <div className="swatch-container">
+                {chromas?.chromas.map((chroma, index) => {
                   return (
-                    <div key={index} className="levels-player">
-                      {level.streamedVideo ? (
-                        <LevelsPlayer
-                          streamVideo={level.streamedVideo}
-                          levelItem={level.levelItem}
+                    <div
+                      key={index}
+                      className=""
+                      onClick={() => changeChroma(chroma.fullRender)}>
+                      {chroma.swatch ? (
+                        <Image
+                          src={chroma.swatch && chroma.swatch}
+                          alt="swatch"
+                          className="swatch-image"
+                          width={60}
+                          height={0}
                         />
                       ) : null}
                     </div>
                   );
                 })}
               </div>
-            </div>
-            <div className="swatch-container">
-              {chromas?.chromas.map((chroma, index) => {
-                return (
-                  <div
-                    key={index}
-                    className=""
-                    onClick={() => changeChroma(chroma.fullRender)}>
-                    {chroma.swatch ? (
-                      <Image
-                        src={chroma.swatch && chroma.swatch}
-                        alt="swatch"
-                        className="swatch-image"
-                        width={60}
-                        height={0}
-                      />
-                    ) : null}
-                  </div>
-                );
-              })}
-            </div>
             </div>
           </div>
         )}
@@ -189,13 +190,14 @@ function WeaponDetail({ params }: { params: { id: string } }) {
                 </div>
               );
             })}
-
         </ScrollShadow>
 
         <div className="py-20">
-          <h2 className="text-white">Matching Skins</h2>
+          <div className="matching-skin-container">
+            <h2 className="current-weapon-title">Matching Skins</h2>
+          </div>
           <div className="flex justify-center">
-              <MatchSkins matchSkin={matchSkin}/>
+            <MatchSkins matchSkin={matchSkin} />
           </div>
         </div>
       </div>
