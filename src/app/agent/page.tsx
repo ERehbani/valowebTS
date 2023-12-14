@@ -23,22 +23,22 @@ export default function Home() {
 
   const [data, setData] = useState<Agent[]>([]);
 
-  // useEffect(() => {
-  //   const consultInfo = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:3000/api/agents");
-  //       const data = await response.json();
-  //       if (Array.isArray(data)) {
-  //         setData(data);
-  //       } else {
-  //         console.error("Data is not an array:", data);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   consultInfo();
-  // }, []);
+  useEffect(() => {
+    const consultInfo = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/agents");
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setData(data);
+        } else {
+          console.error("Data is not an array:", data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    consultInfo();
+  }, []);
 
   console.log(data);
 
@@ -50,7 +50,7 @@ export default function Home() {
         {data.length > 0 ? (
           data.map((item, index) => <AgentCards item={item} key={index} />)
         ) : (
-          <AgentsLoader/>
+          <AgentsLoader image="/agent_loader.webp"/>
         )}
       </div>
     </div>

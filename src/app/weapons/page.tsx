@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import WeaponCards from "@/components/WeaponCards/WeaponCards";
 import { Progress } from "@nextui-org/react";
+import Loader from "@/components/Loader/Loader";
 function Weapons() {
   const [weapons, setWeapons] = useState<Weapon[]>([]);
 
@@ -30,15 +31,7 @@ return (
       {weapons.length > 0 ? (
         <WeaponCards item={weapons} />
       ) : (
-        <div className="loader-container">
-          <Image src="/weapon_loader.webp" alt="loader" width={1000} height={0} />
-            <Progress
-              size="sm"
-              isIndeterminate
-              aria-label="Loading..."
-              className="max-w-md mt-10"
-            />
-        </div>
+       <Loader image="/weapon_loader.webp"/>
       )}
     </div>
   </div>

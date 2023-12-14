@@ -3,11 +3,11 @@ import './globals.css'
 import Image from 'next/image'
 import { Progress } from '@nextui-org/react'
 
-function Loader() {
+function Loader({image}:{image: string}) {
   return (
     <div className="loader-container">
             <Image
-              src="/agent_loader.webp"
+              src={image}
               alt="loader"
               width={1000}
               height={0}
