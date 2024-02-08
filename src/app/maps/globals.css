@@ -12,9 +12,10 @@ img {
   margin-top: -16px;
 }
 
-
 .main-container {
-  margin: 0 auto;;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 
 /* Slider container */
@@ -46,7 +47,7 @@ img {
   cursor: pointer;
   font-size: 12px;
   text-align: center;
-  background-color: #111C26;
+  background-color: #111c26;
   padding: 5px;
   height: 23px;
   border-radius: 12px;

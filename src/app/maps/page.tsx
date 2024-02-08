@@ -4,6 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import "./globals.css";
+import Loader from "@/components/Loader/Loader";
 
 interface DataItem {
   id: string;
@@ -58,6 +59,8 @@ function Maps() {
     console.log(currentIndex);
   }, [currentIndex]);
 
+  console.log(maps);
+
   const scrollToImage = (direction: string) => {
     if (direction === "prev") {
       setCurrentIndex((curr) => {
@@ -77,45 +80,54 @@ function Maps() {
   };
   return (
     <div className="main-container">
-      <div className="slider-container">
-        <div className="leftArrow" onClick={() => scrollToImage("prev")}>
-          &#x276E;
-        </div>
-        <div className="rightArrow" onClick={() => scrollToImage("next")}>
-          &#x276F;
-        </div>
-        <div className="container-images">
-          <ul ref={listRef}>
-            {splash.map((item, index) => {
-              return (
-                <li key={index}>
-                  <Image
-                    alt="img"
-                    src={item.splash}
-                    width={1000}
-                    height={500}
-                  />
+      {maps.length > 0 ? (
+        <div className="slider-container">
+          <div className="leftArrow" onClick={() => scrollToImage("prev")}>
+            &#x276E;
+          </div>
+          <div className="rightArrow" onClick={() => scrollToImage("next")}>
+            &#x276F;
+          </div>
+          <div className="container-images">
+            <ul ref={listRef}>
+              {splash.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <Image
+                      alt="img"
+                      src={item.splash}
+                      width={1000}
+                      height={500}
+                    />
+                    <p
+                      className={`text-white font-semibold top-[530px] absolute flex px-10 py-20 items-center ${
+                        index === currentIndex ? "visible" : "hidden"
+                      } overflow-hidden whitespace-pre-wrap w-[50%] h-36 bg-[#9c8551] text-center rounded-tl-3xl rounded-br-3xl
 
-                    <p className="text-white">{item.narrativeDescription}</p>
-
-                </li>
-              );
-            })}
-          </ul>
+                   `}>
+                      {item.narrativeDescription || "No description"}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="dots-container">
+            {splash.map((_, idx) => (
+              <div
+                key={idx}
+                className={`dot-container-item ${
+                  idx === currentIndex ? "active" : ""
+                }`}
+                onClick={() => goToSlide(idx)}>
+                •
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="dots-container">
-          {splash.map((_, idx) => (
-            <div
-              key={idx}
-              className={`dot-container-item ${
-                idx === currentIndex ? "active" : ""
-              }`}
-              onClick={() => goToSlide(idx)}>
-              •
-            </div>
-          ))}
-        </div>
-      </div>
+      ) : (
+        <Loader image="/maps_loader.jpg" />
+      )}
     </div>
   );
 }

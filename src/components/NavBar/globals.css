@@ -1,0 +1,9 @@
+.navbar {
+  background: linear-gradient(
+    180deg,
+    #ff4655 -22.09%,
+    rgba(10, 11, 13, 0) 50.23%
+  );
+
+  backdrop-filter: blur(16px);
+}

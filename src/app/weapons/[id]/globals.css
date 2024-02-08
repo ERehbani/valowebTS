@@ -30,6 +30,7 @@
   object-fit: cover;
   aspect-ratio: 3/2;
   pointer-events: none;
+  margin: 0 auto;
 }
 
 .current-weapon {

@@ -42,10 +42,13 @@
   width: 30%;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .role-icon {
   object-fit: contain;
+  margin: 0 auto;
 }
 
 .image-agent {

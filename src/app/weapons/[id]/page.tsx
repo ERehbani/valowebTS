@@ -20,7 +20,6 @@ function WeaponDetail({ params }: { params: { id: string } }) {
   const [catalog, setCatalog] = useState<Weapon[] | null>();
   const [matchSkin, setMatchSkin] = useState<Skins[]>([]);
 
-
   useEffect(() => {
     const getDetail = async () => {
       try {
@@ -101,7 +100,13 @@ function WeaponDetail({ params }: { params: { id: string } }) {
       <div>
         <div className="w-[95%] absolute ml-10">
           <Link href="/weapons">
-            <Image src="/arrow-back.svg" alt="back" width={50} height={20} className="svg-back"/>
+            <Image
+              src="/arrow-back.svg"
+              alt="back"
+              width={50}
+              height={20}
+              className="svg-back"
+            />
             <h2 className="text-white text-xl ml-1">Back</h2>
           </Link>
         </div>
@@ -160,7 +165,7 @@ function WeaponDetail({ params }: { params: { id: string } }) {
           </div>
         )}
 
-        <ScrollShadow hideScrollBar className="skins-container">
+        <ScrollShadow hideScrollBar className="skins-container ">
           {weapon?.skins
             .filter(
               (skin) =>
@@ -192,13 +197,20 @@ function WeaponDetail({ params }: { params: { id: string } }) {
             })}
         </ScrollShadow>
 
-        <div className="py-20">
-          <div className="matching-skin-container">
-            <h2 className="current-weapon-title">Matching Skins</h2>
-          </div>
-          <div className="flex justify-center">
-            <MatchSkins matchSkin={matchSkin} />
-          </div>
+        <div className="py-20 ">
+          {matchSkin.length > 0 ? (
+            <>
+              {" "}
+              <div className="matching-skin-container">
+                <h2 className="current-weapon-title">Matching Skins</h2>
+              </div>
+              <div className="flex justify-center">
+                <MatchSkins matchSkin={matchSkin} />
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
