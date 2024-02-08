@@ -18,13 +18,14 @@ const config: Config = {
       colors: {
         primary: "#111C26",
         secondary: "#FD4556",
-        default: "#2B2A29"
+        default: "#2B2A29",
       },
     },
     fontFamily: {
-      'tungsten': ['Tungsten'],
-      'din': ['din pro', 'Corbel']
-    }
+      tungsten: ["Tungsten"],
+      'anton': ['Anton', 'sans-serif'],
+      'grotesk': ['Space Grotesk', 'sans-serif']
+    },
   },
   plugins: [nextui()],
 };
